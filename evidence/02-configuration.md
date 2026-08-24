@@ -2,104 +2,87 @@
 
 ## Objective
 
-The objective of this step was to verify and configure Snort 3 for network traffic monitoring in the authorized cybersecurity laboratory environment.
+The objective of this step was to configure and validate Snort 3 for network traffic monitoring in the authorized cybersecurity laboratory environment.
 
 ## Snort Version
 
-The installed Snort version was identified using:
+The installed Snort version was verified during the installation phase.
 
-    snort -V
-
-The laboratory system is running:
+The laboratory environment uses:
 
     Snort++ 3.12.2.0
 
-## Configuration Model
+## Network Interface Identification
 
-Snort 3 uses Lua-based configuration files.
-
-The primary configuration file is:
-
-    snort.lua
-
-The configuration controls how Snort processes network traffic, loads rules, and handles detection and logging.
-
-## Configuration Validation
-
-The Snort configuration was validated before beginning the detection tests.
-
-The configuration validation completed successfully with zero warnings.
-
-### Validation Result
-
-    Snort successfully validated the configuration (with 0 warnings).
-
-This confirmed that the active Snort configuration was syntactically valid and could be processed by the Snort engine.
-
-## Network Interface
-
-The network interface used for monitoring was identified on the Kali Linux laboratory machine.
-
-The interface was verified before starting live traffic detection.
-
-### Command
+The available network interfaces were identified using:
 
     ip -br addr
 
-The command was used to identify available network interfaces and their assigned addresses.
+This command was used to identify the active network interface and its assigned IP address before configuring live traffic monitoring.
 
 ## Configuration File
 
-The Snort 3 Lua configuration file was located and reviewed before running the IDS.
+The Snort 3 configuration file was located using:
 
-The configuration was used as the base configuration for the subsequent custom-rule detection exercises.
+    find /etc/snort -name "snort.lua" 2>/dev/null
 
-## Rule Loading
+The primary Snort 3 configuration file used for this assessment was:
 
-Snort 3 supports loading custom rules from separate `.rules` files.
+    /etc/snort/snort.lua
 
-The custom rules created for this project will be loaded during the detection phase.
+Snort 3 uses Lua-based configuration files to define configuration settings, modules, logging behavior, and rule loading.
 
-The rule categories include:
+## Configuration Validation
 
-- ICMP detection
-- Port-scan detection
-- SSH brute-force detection
+The configuration was validated using:
 
-## Configuration Test
+    sudo snort -c /etc/snort/snort.lua -T
 
-Before running Snort against live laboratory traffic, the configuration was validated.
+The `-c` option specifies the Snort configuration file, while `-T` validates the configuration without starting normal live traffic processing.
 
-The successful validation confirmed:
+## Validation Result
 
-- The configuration file could be loaded.
-- The Snort configuration contained no validation warnings.
-- The Snort engine was ready for the next stage.
-- Custom detection rules could be tested against the configured environment.
+The configuration validation completed successfully.
+
+The validation confirmed that the Snort configuration could be loaded successfully and was ready for the subsequent rule-development and traffic-detection phases.
 
 ## Security Relevance
 
-Correct configuration is essential for an IDS because the configuration determines how Snort processes network traffic and loads detection rules.
+Correct configuration is essential for an Intrusion Detection System because Snort must successfully load its configuration before it can inspect network traffic and apply detection rules.
 
-A configuration error can prevent Snort from starting or can result in detection rules not being loaded correctly.
+A configuration validation step helps identify configuration errors before starting live network monitoring.
 
-## Evidence Screenshot
+## Evidence Screenshots
 
-The following screenshot provides evidence of the Snort 3 configuration validation.
+### Network Interface
+
+![Network Interface](../screenshots/02-interface.png)
+
+The screenshot shows the network interfaces identified on the Kali Linux laboratory machine.
+
+### Snort Configuration File
+
+![Snort Configuration File](../screenshots/02-config-file.png)
+
+The screenshot shows the location and existence of the Snort 3 configuration file.
+
+### Configuration Validation
 
 ![Snort Configuration Validation](../screenshots/02-configuration.png)
 
+The screenshot provides evidence that the Snort configuration was successfully validated.
+
 ## Result
 
-Snort 3.12.2.0 successfully validated the active configuration with zero warnings.
+Snort 3 configuration was successfully located and validated.
 
-The Snort installation is therefore ready for the custom-rule development and detection phases.
+The Snort engine is ready for the custom-rule development and network detection phases.
 
 ## Conclusion
 
-The Snort 3 configuration was successfully validated in the authorized laboratory environment.
+The configuration phase established the required Snort 3 configuration for the authorized laboratory environment.
 
-The next phase is to create and test custom Snort rules for ICMP traffic, port scanning, and SSH brute-force detection.
+The next phase will focus on creating custom detection rules for ICMP traffic, port scanning, and SSH brute-force activity.
 
 ## Authorization
 
